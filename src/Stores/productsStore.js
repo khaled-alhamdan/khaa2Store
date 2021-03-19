@@ -1,7 +1,7 @@
 // // Importing the products list
 // import products from "../products";
 // Importing slugify
-import slugify from "react-slugify";
+// import slugify from "react-slugify";
 // Importing axios
 import axios from "axios";
 import { makeObservable, observable, action } from "mobx";
@@ -15,12 +15,13 @@ class ProductStore {
       createProduct: action,
       deleteProduct: action,
       fetchProducts: action,
+      updateProduct: action,
     });
   }
 
   fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:8001/products");
+      const response = await axios.get("http://localhost:8000/products");
       this.products = response.data;
     } catch (error) {
       console.error(error);
@@ -30,7 +31,7 @@ class ProductStore {
   createProduct = async (newProduct) => {
     try {
       const res = await axios.post(
-        "http://localhost:8001/products",
+        "http://localhost:8000/products",
         newProduct
       );
       this.products.push(res.data);
@@ -44,8 +45,23 @@ class ProductStore {
     // console.log(this.products);
   };
 
+  updateProduct = async (updateProduct) => {
+    try {
+      await axios.put(
+        `http://localhost:8000/products/${updateProduct.id}`,
+        updateProduct
+      );
+      const product = this.products.find(
+        (product) => product.id === updateProduct.id
+      );
+      for (const key in product) product[key] = updateProduct[key];
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   deleteProduct = async (productId) => {
-    await axios.delete(`http://localhost:8001/products/${productId}`);
+    await axios.delete(`http://localhost:8000/products/${productId}`);
     this.products = this.products.filter(
       (product) => product.id !== +productId
     );

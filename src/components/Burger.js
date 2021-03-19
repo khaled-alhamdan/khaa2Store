@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { StyledBurger, NavbarButtons, NavBarUL } from "../styles";
-import { Link } from "react-router-dom";
+import { StyledBurger, NavbarButtons, NavBarUL, StyledLink } from "../styles";
 
-const NavbarButtonsList = ["Home", "Products", "About"];
+const NavbarButtonsList = ["home", "products", "about"];
 
 const Burger = () => {
   const [open, setOpen] = useState(false);
@@ -16,9 +15,9 @@ const Burger = () => {
       <div style={{ display: "flex" }} open={open}>
         <NavBarUL open={open}>
           {NavbarButtonsList.map((props) => (
-            <Link to={`/${props}`}>
+            <StyledLink to={`/${props}`}>
               <NavbarButtons>{props}</NavbarButtons>
-            </Link>
+            </StyledLink>
           ))}
         </NavBarUL>
       </div>

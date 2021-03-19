@@ -11,8 +11,8 @@ import ProductItem from "./ProductItem";
 // Importing search bar
 import SearchBar from "./SearchBar";
 
-export const ProductsList = (props) => {
-  const setProduct = props.setProduct;
+export const ProductsList = () => {
+  // const setProduct = props.setProduct;
   // const product = props.product;
 
   const [search, setSearch] = useState("");
@@ -27,7 +27,7 @@ export const ProductsList = (props) => {
       <ProductItem
         product={product}
         key={product.id}
-        setProduct={setProduct}
+        // setProduct={setProduct}
         // deleteMethod={deleteMethod}
       />
     ));

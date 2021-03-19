@@ -2,13 +2,15 @@ import React from "react";
 // Importing products list
 import ProductsList from "./ProductsList";
 
-export const ProductsPage = (props) => {
-  const setProduct = props.setProduct;
+export const ProductsPage = () => {
+  // const setProduct = props.setProduct;
   return (
     <div>
-      <ProductsList setProduct={setProduct} />
+      <ProductsList />
     </div>
   );
 };
 
 export default ProductsPage;
+
+// setProduct={setProduct}

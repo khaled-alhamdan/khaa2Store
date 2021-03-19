@@ -24,6 +24,7 @@ const theme = {
     moreInfoText: "white",
     moreInfoBorder: "white",
     deleteButton: "#c92f1e",
+    updateButton: "green",
     boxColor: "black",
     headerBGC: "black",
     fontColor: "black",
@@ -35,6 +36,7 @@ const theme = {
     moreInfoText: "black",
     moreInfoBorder: "grey",
     deleteButton: "#c92f1e",
+    updateButton: "green",
     boxColor: "white",
     headerBGC: "black",
     fontColor: "white",
@@ -51,16 +53,16 @@ const App = () => {
     setCurrentTheme(currentTheme === "lightTheme" ? "darkTheme" : "lightTheme");
   };
 
-  // For product Detail
-  const [product, setProduct] = useState(null);
+  // // For product Detail
+  // const [product, setProduct] = useState(null);
 
-  const setView = () => {
-    if (product) {
-      return <ProductDetail product={product} />;
-    } else {
-      return <ProductsPage setProduct={setProduct} />;
-    }
-  };
+  // const setView = () => {
+  //   if (product) {
+  //     return <ProductDetail product={product} />;
+  //   } else {
+  //     return <ProductsPage setProduct={setProduct} />;
+  //   }
+  // };
 
   return (
     <div>
@@ -68,27 +70,27 @@ const App = () => {
         <HeaderNavbar />
         <GlobalStyle />
         <Switch>
-          <Route path="/products" exact>
+          {/* <Route path="/products" exact>
             {setView()}
-          </Route>
-          {/* <Route path="/products/:productId" exact>
-            <ProductDetail product={product} />
+          </Route> */}
+          <Route path="/products/:productId" exact>
+            <ProductDetail />
+            {/* product={product} */}
           </Route>
           <Route path="/products" exact>
-            <ProductsPage setProduct={setProduct} />
-          </Route> */}
+            <ProductsPage />
+            {/* setProduct={setProduct}  */}
+          </Route>
           <Route path="/" exact>
             <HomePage />
           </Route>
-          <Route path="/Home" exact>
+          <Route path="/home" exact>
             <Redirect to="/" />
           </Route>
-          <Route path="/About" exact>
+          <Route path="/about" exact>
             <Redirect to="/" />
           </Route>
         </Switch>
-        {/* <ProductsPage setProduct={setProduct} />
-        <ProductDetail product={product} /> */}
         <ThemeButtonDiv>
           <ThemeButton onClick={toggleTheme}>
             {currentTheme === "lightTheme" ? "Dark" : "Light"} Mode

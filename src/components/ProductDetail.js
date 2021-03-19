@@ -1,21 +1,22 @@
 import React from "react";
 // Importing products store
-// import productStore from "../Stores/productsStore";
+import productStore from "../Stores/productsStore";
 import {
   ProductDetailImagesAdjustments,
   PriceAndNameTag,
   NameTagDiv,
+  StyledLink,
+  BackDetailButton,
 } from "../styles";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-export const ProductDetail = (props) => {
-  const product = props.product;
+export const ProductDetail = () => {
+  // const product = props.product;
 
-  // const { productId } = useParams();
-  // const productId = useParams().productId;
-  // const product = productStore.products.find(
-  //   (product) => product.id === +productId
-  // );
+  const { productId } = useParams();
+  const product = productStore.products.find(
+    (product) => product.id === +productId
+  );
 
   return (
     <div
@@ -23,7 +24,15 @@ export const ProductDetail = (props) => {
         textAlign: "center",
       }}
     >
-      <ProductDetailImagesAdjustments alt={product.name} src={product.image} />
+      {product.image ? (
+        <ProductDetailImagesAdjustments
+          alt={product.name}
+          src={product.image}
+        />
+      ) : (
+        <ProductDetailImagesAdjustments />
+      )}
+      {/* <ProductDetailImagesAdjustments alt={product.name} src={product.image} /> */}
       <div>
         <NameTagDiv>
           <PriceAndNameTag>
@@ -35,9 +44,12 @@ export const ProductDetail = (props) => {
             <b>{product.description}</b>
           </PriceAndNameTag>
         </div>
-        <PriceAndNameTag>Price: {product.price}</PriceAndNameTag>
-        <button>back</button>
-        {/* onClick={() => setProduct(null)} */}
+        <PriceAndNameTag>Price: {product.price} K.D.</PriceAndNameTag>
+        <div>
+          <StyledLink to={`/products`}>
+            <BackDetailButton>return to products</BackDetailButton>
+          </StyledLink>
+        </div>
       </div>
     </div>
   );

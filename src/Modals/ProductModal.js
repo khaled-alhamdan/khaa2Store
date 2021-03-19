@@ -23,13 +23,15 @@ const customStyles = {
   },
 };
 
-const ProductModal = (props) => {
-  const [product, setProduct] = useState({
-    name: "",
-    price: 0,
-    description: "",
-    image: "",
-  });
+const ProductModal = ({ oldProduct, modalStatus, isOpen, closeModal }) => {
+  const [product, setProduct] = useState(
+    oldProduct ?? {
+      name: "",
+      price: "",
+      description: "",
+      image: "",
+    }
+  );
 
   const handleChange = (event) => {
     setProduct({ ...product, [event.target.name]: event.target.value });
@@ -37,21 +39,21 @@ const ProductModal = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault(); // prevent refreshing the page
-    productStore.createProduct(product);
+    productStore[oldProduct ? "updateProduct" : "createProduct"](product);
   };
 
   return (
     <>
-      {props.isOpen ? (
+      {isOpen ? (
         <Modal
-          modalStatus={props.modalStatus}
-          isOpen={props.isOpen}
-          onRequestClose={props.closeModal}
+          modalStatus={modalStatus}
+          isOpen={isOpen}
+          onRequestClose={closeModal}
           style={customStyles}
           contentLabel="Example Modal"
         >
           <form onSubmit={handleSubmit}>
-            <ClosingModalX onClick={props.closeModal} />
+            <ClosingModalX onClick={closeModal} />
             <div>
               <div>
                 <ModalLabels>Name :</ModalLabels>
@@ -60,6 +62,7 @@ const ProductModal = (props) => {
                     type="text"
                     placeholder="Enter Product Name"
                     name="name"
+                    value={product.name}
                     onChange={handleChange}
                   />
                 </ModalInputDiv>
@@ -72,6 +75,7 @@ const ProductModal = (props) => {
                     min="1"
                     placeholder="Enter Product Price"
                     name="price"
+                    value={product.price}
                     onChange={handleChange}
                   />
                 </ModalInputDiv>
@@ -80,9 +84,10 @@ const ProductModal = (props) => {
                 <ModalLabels>Image :</ModalLabels>
                 <ModalInputDiv>
                   <ModalInput
-                    type="text"
+                    type="test"
                     placeholder="Enter Product Image"
                     name="image"
+                    value={product.image}
                     onChange={handleChange}
                   />
                 </ModalInputDiv>
@@ -94,6 +99,7 @@ const ProductModal = (props) => {
                     type="text"
                     placeholder="Enter Product Description"
                     name="description"
+                    value={product.description}
                     onChange={handleChange}
                   />
                 </ModalInputDiv>
@@ -101,9 +107,9 @@ const ProductModal = (props) => {
             </div>
             <CreateButtonStyled
               className="btn float-right"
-              onSubmit={() => handleSubmit}
+              onSubmit={{ handleSubmit }}
             >
-              Create
+              {oldProduct ? "Update" : "Create"}
             </CreateButtonStyled>
           </form>
         </Modal>

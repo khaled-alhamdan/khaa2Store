@@ -1,5 +1,7 @@
 import styled, { createGlobalStyle } from "styled-components";
-// import { Link } from "react-router-dom";
+import ImageCoomingSoon from "./Images/ImageComingSoon.jpg";
+
+import { Link } from "react-router-dom";
 // X icon
 import { MdClose } from "react-icons/md";
 // + icon
@@ -53,7 +55,7 @@ export const NavbarButtons = styled.li`
   border: none;
   margin: 2px;
   outline: none;
-  text-transform: uppercase;
+  text-transform: capitalize;
   cursor: pointer;
   :hover {
     background: gray;
@@ -167,6 +169,7 @@ export const ThemeButton = styled.button`
     background-color: grey;
     color: Black;
     transition: 1s;
+    border: 1px solid white;
   }
 `;
 
@@ -190,6 +193,9 @@ export const ImagesAdjustments = styled.img`
   box-shadow: 0px 0px 12px ${(props) => props.theme.boxColor};
   margin-bottom: 15px;
   margin-top: 15px;
+  background-image: url(${ImageCoomingSoon});
+  background-size: cover;
+  /* background: black; */
 `;
 
 export const PriceAndNameTag = styled.text`
@@ -201,6 +207,7 @@ export const PriceAndNameTag = styled.text`
 
 export const MoreInfoButton = styled.button`
   text-align: center;
+  /* text-transform: uppercase; */
   font-family: sans-serif;
   font-size: 15px;
   color: ${(props) => props.theme.moreInfoText};
@@ -208,7 +215,7 @@ export const MoreInfoButton = styled.button`
   border: 2px solid ${(props) => props.theme.moreInfoBorder};
   outline: none;
   padding: 3px;
-  width: 80px;
+  width: 165px;
   border-radius: 6px;
   margin: 2px;
   :hover {
@@ -278,6 +285,8 @@ export const ProductDetailImagesAdjustments = styled.img`
   box-shadow: 0px 0px 12px ${(props) => props.theme.boxColor};
   margin-bottom: 15px;
   margin-top: 15px;
+  background-image: url(${ImageCoomingSoon});
+  background-size: cover;
 `;
 
 export const IconPlusCircle = styled(BsPlusCircle)`
@@ -348,6 +357,47 @@ export const AddNewProductButton = styled.p`
   cursor: pointer;
 `;
 
-export const UpdateButtonStyled = styled.p`
-  color: pink;
+export const UpdateButtonStyled = styled.button`
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 15px;
+  color: white;
+  background-color: ${(props) => props.theme.updateButton};
+  /* border: 2px solid ${(props) => props.theme.moreInfoBorder}; */
+  border: 2px solid white;
+  outline: none;
+  padding: 3px;
+  width: 80px;
+  border-radius: 6px;
+  margin: 2px;
+  opacity: 50%;
+  :hover {
+    cursor: pointer;
+    opacity: 100%;
+    transition: 0.8s;
+  }
+`;
+
+export const StyledLink = styled(Link)`
+  cursor: pointer;
+  text-decoration: none;
+`;
+
+export const BackDetailButton = styled.button`
+  color: ${(props) => props.theme.buttonTextColor};
+  background-color: ${(props) => props.theme.buttonBGColor};
+  text-transform: uppercase;
+  font-family: sans-serif;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  outline: none;
+  margin-top: 15px;
+
+  :hover {
+    background-color: grey;
+    color: Black;
+    transition: 0.6s;
+    border: 1px solid white;
+  }
 `;
