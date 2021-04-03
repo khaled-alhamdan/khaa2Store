@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
 // Importing products store
-import productStore from "../Stores/productsStore";
+import productStore from "../../Stores/productsStore";
 // Importing styled components
-import { ProductInfoWrapperDiv, ProductInfoConatinerDiv } from "../styles";
+import { ProductInfoWrapperDiv, ProductInfoConatinerDiv } from "../../styles";
 // Importing add product button
-import AddButton from "./AddButton";
+import AddButton from "../Buttons/AddButton";
 // Importing product item
 import ProductItem from "./ProductItem";
 // Importing search bar
-import SearchBar from "./SearchBar";
+import SearchBar from "../Navbar/SearchBar";
 
 export const ProductsList = () => {
-  // const setProduct = props.setProduct;
-  // const product = props.product;
-
   const [search, setSearch] = useState("");
 
   productStore.products.forEach((product) => console.log(product));

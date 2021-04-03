@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-// Importing products store
-import productStore from "../Stores/productsStore";
+// Importing Auth Store
+import authStore from "../Stores/authStore";
 // import { useParams } from "react-router-dom";
-
 import Modal from "react-modal";
+import { observer } from "mobx-react";
+
 import {
   CreateButtonStyled,
   ModalInput,
@@ -24,34 +25,24 @@ const customStyles = {
   },
 };
 
-const ProductModal = ({ oldProduct, modalStatus, isOpen, closeModal }) => {
-  // const { storeId } = useParams();
+const SignUpModal = ({ modalStatus, isOpen, closeModal }) => {
+  // useState
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    password: "",
+  });
 
-  const [product, setProduct] = useState(
-    oldProduct ?? {
-      name: "",
-      price: "",
-      description: "",
-      image: "",
-    }
-  );
-
+  // Change handler
   const handleChange = (event) => {
-    setProduct({
-      ...product,
-      [event.target.name]:
-        event.target.name === "image"
-          ? event.target.files[0]
-          : event.target.value,
-    });
+    setUserData({ ...userData, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault(); // prevent refreshing the page
-    productStore[oldProduct ? "updateProduct" : "createProduct"](
-      product
-      // storeId
-    );
+    authStore.signup(userData);
     closeModal();
   };
 
@@ -64,55 +55,69 @@ const ProductModal = ({ oldProduct, modalStatus, isOpen, closeModal }) => {
           onRequestClose={closeModal}
           style={customStyles}
           ariaHideApp={false}
-          contentLabel="Example Modal"
+          contentLabel="Signup Modal"
         >
+          <h3> Sign up </h3>
           <form onSubmit={handleSubmit}>
             <ClosingModalX onClick={closeModal} />
             <div>
               <div>
-                <ModalLabels>Name :</ModalLabels>
+                <ModalLabels>Username :</ModalLabels>
                 <ModalInputDiv>
                   <ModalInput
                     type="text"
-                    placeholder="Enter Product Name"
-                    name="name"
-                    value={product.name}
+                    placeholder="Enter a username"
+                    name="username"
+                    value={userData.username}
                     onChange={handleChange}
                   />
                 </ModalInputDiv>
               </div>
               <div>
-                <ModalLabels>Price :</ModalLabels>
-                <ModalInputDiv>
-                  <ModalInput
-                    type="number"
-                    min="1"
-                    placeholder="Enter Product Price"
-                    name="price"
-                    value={product.price}
-                    onChange={handleChange}
-                  />
-                </ModalInputDiv>
-              </div>
-              <div>
-                <ModalLabels>Image :</ModalLabels>
-                <ModalInputDiv>
-                  <ModalInput
-                    type="file"
-                    placeholder="Enter Product Image"
-                    name="image"
-                    onChange={handleChange}
-                  />
-                </ModalInputDiv>
-              </div>
-              <div>
-                <ModalLabels>Description :</ModalLabels>
+                <ModalLabels>First name :</ModalLabels>
                 <ModalInputDiv>
                   <ModalInput
                     type="text"
-                    placeholder="Enter Product Description"
-                    name="description"
-                    value={product.description}
+                    placeholder="Enter your first name"
+                    name="firstName"
+                    value={userData.firstName}
+                    onChange={handleChange}
+                    // required
+                  />
+                </ModalInputDiv>
+              </div>
+              <div>
+                <ModalLabels>Last name :</ModalLabels>
+                <ModalInputDiv>
+                  <ModalInput
+                    type="text"
+                    placeholder="Enter your last name"
+                    name="lastName"
+                    value={userData.lastName}
+                    onChange={handleChange}
+                  />
+                </ModalInputDiv>
+              </div>
+              <div>
+                <ModalLabels>Email :</ModalLabels>
+                <ModalInputDiv>
+                  <ModalInput
+                    type="text"
+                    placeholder="Enter your email"
+                    name="email"
+                    value={userData.email}
+                    onChange={handleChange}
+                  />
+                </ModalInputDiv>
+              </div>
+              <div>
+                <ModalLabels>Password :</ModalLabels>
+                <ModalInputDiv>
+                  <ModalInput
+                    type="password"
+                    placeholder="Enter a password"
+                    name="password"
+                    value={userData.password}
                     onChange={handleChange}
                   />
                 </ModalInputDiv>
@@ -120,9 +125,9 @@ const ProductModal = ({ oldProduct, modalStatus, isOpen, closeModal }) => {
             </div>
             <CreateButtonStyled
               className="btn float-right"
-              onSubmit={handleSubmit}
+              onSubmit={{ handleSubmit }}
             >
-              {oldProduct ? "Update" : "Create"}
+              Sign up
             </CreateButtonStyled>
           </form>
         </Modal>
@@ -131,4 +136,4 @@ const ProductModal = ({ oldProduct, modalStatus, isOpen, closeModal }) => {
   );
 };
 
-export default ProductModal;
+export default observer(SignUpModal);

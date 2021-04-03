@@ -1,56 +1,55 @@
-// // Importing the products list
-// import products from "../products";
-// Importing slugify
-// import slugify from "react-slugify";
-// Importing axios
-import axios from "axios";
-import { makeObservable, observable, action } from "mobx";
+// Importing instance
+import instance from "./instance";
+import { makeAutoObservable } from "mobx";
 
 class ProductStore {
   products = [];
+  loading = true;
 
   constructor() {
-    makeObservable(this, {
-      products: observable,
-      createProduct: action,
-      deleteProduct: action,
-      fetchProducts: action,
-      updateProduct: action,
-    });
+    makeAutoObservable(this);
   }
 
   fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/products");
+      const response = await instance.get("/products");
       this.products = response.data;
+      this.loading = false;
     } catch (error) {
       console.error(error);
     }
   };
 
+  // createProduct = async (newProduct, storeId) => {
+  //   try {
+  //     const formData = new FormData();
+  //     for (const key in newProduct) formData.append(key, newProduct[key]);
+  //     const res = await axios.post(
+  //       `http://localhost:8000/stores/${storeId}/products`,
+  //       formData
+  //     );
+  //     this.products.push(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   createProduct = async (newProduct) => {
     try {
-      const res = await axios.post(
-        "http://localhost:8000/products",
-        newProduct
-      );
+      const formData = new FormData();
+      for (const key in newProduct) formData.append(key, newProduct[key]);
+      const res = await instance.post(`/products`, formData);
       this.products.push(res.data);
     } catch (error) {
       console.log(error);
     }
-    // product.id = this.products[this.products.length - 1].id + 1;
-    // // product.id = this.products.length + 1;
-    // product.slug = slugify(product.name);
-    // this.products.push(product);
-    // console.log(this.products);
   };
 
   updateProduct = async (updateProduct) => {
     try {
-      await axios.put(
-        `http://localhost:8000/products/${updateProduct.id}`,
-        updateProduct
-      );
+      const formData = new FormData();
+      for (const key in updateProduct) formData.append(key, updateProduct[key]);
+      await instance.put(`/products/${updateProduct.id}`, formData);
       const product = this.products.find(
         (product) => product.id === updateProduct.id
       );
@@ -61,7 +60,7 @@ class ProductStore {
   };
 
   deleteProduct = async (productId) => {
-    await axios.delete(`http://localhost:8000/products/${productId}`);
+    await instance.delete(`/products/${productId}`);
     this.products = this.products.filter(
       (product) => product.id !== +productId
     );

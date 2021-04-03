@@ -21,7 +21,7 @@ export const HeaderDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  position: absolute;
+  position: relative; // Removed the extra
   padding: 10px;
 `;
 
@@ -195,10 +195,9 @@ export const ImagesAdjustments = styled.img`
   margin-top: 15px;
   background-image: url(${ImageCoomingSoon});
   background-size: cover;
-  /* background: black; */
 `;
 
-export const PriceAndNameTag = styled.text`
+export const PriceAndNameTag = styled.label`
   text-align: center;
   font-size: 20px;
   color: ${(props) => props.theme.fontColor};

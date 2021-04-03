@@ -8,8 +8,8 @@ import {
   KhaImgDiv,
   KhaImg,
   // NavBarUL,
-} from "../styles";
-import background from "../Images/khaaStoreImg.jpg";
+} from "../../styles";
+import background from "../../Images/khaaStoreImg.jpg";
 import { Link } from "react-router-dom";
 import Burger from "./Burger";
 

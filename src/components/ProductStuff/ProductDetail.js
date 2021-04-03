@@ -1,22 +1,25 @@
 import React from "react";
 // Importing products store
-import productStore from "../Stores/productsStore";
+import productStore from "../../Stores/productsStore";
 import {
   ProductDetailImagesAdjustments,
   PriceAndNameTag,
   NameTagDiv,
   StyledLink,
   BackDetailButton,
-} from "../styles";
+} from "../../styles";
+import { observer } from "mobx-react";
 import { useParams } from "react-router-dom";
 
 export const ProductDetail = () => {
   // const product = props.product;
-
   const { productId } = useParams();
-  const product = productStore.products.find(
-    (product) => product.id === +productId
-  );
+  let product = [];
+
+  if (productStore.loading === false)
+    product = productStore.products.find(
+      (product) => product.id === +productId
+    );
 
   return (
     <div
@@ -55,4 +58,4 @@ export const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+export default observer(ProductDetail);

@@ -9,13 +9,15 @@ import { GlobalStyle, ThemeButton, ThemeButtonDiv } from "./styles";
 // Importing Themeprovide
 import { ThemeProvider } from "styled-components";
 // Importing Header Component
-import HeaderNavbar from "./components/HeaderNavbar";
+import HeaderNavbar from "./components/Navbar/HeaderNavbar";
 // Import Products page
-import ProductsPage from "./components/ProductsPage";
+import ProductsPage from "./components/ProductStuff/ProductsPage";
 // Import Home page
 import HomePage from "./components/HomePage";
+// Import Sign page
+import SignPage from "./components/UserStuff/SignPage";
 // Importing product detail component
-import ProductDetail from "./components/ProductDetail";
+import ProductDetail from "./components/ProductStuff/ProductDetail";
 
 // Theme
 const theme = {
@@ -65,7 +67,7 @@ const App = () => {
   // };
 
   return (
-    <div>
+    <div style={{ width: "100vw", overflow: "hidden" }}>
       <ThemeProvider theme={theme[currentTheme]}>
         <HeaderNavbar />
         <GlobalStyle />
@@ -80,6 +82,9 @@ const App = () => {
           <Route path="/products" exact>
             <ProductsPage />
             {/* setProduct={setProduct}  */}
+          </Route>
+          <Route path="/signup" exact>
+            <SignPage />
           </Route>
           <Route path="/" exact>
             <HomePage />

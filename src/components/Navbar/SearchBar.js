@@ -1,5 +1,5 @@
 import React from "react";
-import { SearchBarStyled } from "../styles";
+import { SearchBarStyled } from "../../styles";
 
 const SearchBar = (props) => {
   return (

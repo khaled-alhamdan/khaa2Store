@@ -1,7 +1,8 @@
 import React from "react";
 // Importing products store
-import productStore from "../Stores/productsStore";
+import productStore from "../../Stores/productsStore";
 import { observer } from "mobx-react";
+import authStore from "../../Stores/authStore";
 
 import {
   ImagesAdjustments,
@@ -10,8 +11,8 @@ import {
   MoreInfoButton,
   DeleteButton,
   StyledLink,
-} from "../styles";
-import UpdateButton from "./UpdateButton";
+} from "../../styles";
+import UpdateButton from "../Buttons/UpdateButton";
 
 export const ProductItem = (props) => {
   const product = props.product;
@@ -35,10 +36,13 @@ export const ProductItem = (props) => {
             <b> {product.name}</b>
           </PriceAndNameTag>
         </NameTagDiv>
-        <UpdateButton oldProduct={product} />
-        {/* line 32 and 33 onClicks are equivelent exept that in line 32 handelDelet is predefined on top */}
-        {/* <DeleteButton onClick={() => alert(`Deleting ${product.name}`)}> */}
-        <DeleteButton onClick={handelDelete}>Delete</DeleteButton>
+        {authStore.user && (
+          <>
+            <UpdateButton oldProduct={product} />
+            {/* <DeleteButton onClick={() => alert(`Deleting ${product.name}`)}> */}
+            <DeleteButton onClick={handelDelete}>Delete</DeleteButton>
+          </>
+        )}
         <div>
           <StyledLink to={`/products/${product.id}`}>
             <MoreInfoButton>Product Information</MoreInfoButton>

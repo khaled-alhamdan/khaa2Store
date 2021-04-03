@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { UpdateButtonStyled } from "../styles";
-import ProductModal from "../Modals/ProductModal";
+import { UpdateButtonStyled } from "../../styles";
+import ProductModal from "../../Modals/ProductModal";
+import { observer } from "mobx-react";
 
 const UpdateButton = ({ oldProduct }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,4 +23,4 @@ const UpdateButton = ({ oldProduct }) => {
   );
 };
 
-export default UpdateButton;
+export default observer(UpdateButton);
